@@ -34,7 +34,7 @@ include "controllers/loginController.php";
                   <div class="form-group">
                      <input type="password" value="<?php echo getFieldValue("password"); ?>" name="password" class="form-control" id="password" placeholder="Password">
                      <small id="passwordErr" class="form-text red"><?php echo showErrors("password");  ?></small>
-                     <a href="forgotPassword.php"><small class="black">Forgot Password?</small></a>
+                     
                   </div>
                    <input class="btn btn-primary btn-sm" type="submit" name="login" value="LOGIN">
                    <a class="btn btn-primary btn-sm" href='register.php'> REGISTER</a>

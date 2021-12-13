@@ -35,12 +35,17 @@ function getFieldValue($fieldKey = '')
 /**
 * gets user details from the form 
 *
+* mode modes
+* values regCustomer-for registering customer
+* 
 * @return array
 */ 
-function getUserInfo()
+function getUserInfo($mode="")
 {
     $userDetails['name']                       = getFieldValue("name");
-    $userDetails['type']                       = getFieldValue("type");
+    if(!$mode="regCustomer"){
+        $userDetails['type']                       = getFieldValue("type");
+    }
     $userDetails['email']                      = getFieldValue("email");
    // $userDetails['password']                   = getFieldValue("password");
     $userDetails['password']                   = password_hash(getFieldValue("password"), PASSWORD_DEFAULT);
@@ -58,6 +63,7 @@ function getUserInfo()
 function insertUser($userInfo = []) 
 {
 	global $conn;
+    // var_dump($conn);
 	$sql = "INSERT INTO users (name, type, email, password) 
 			VALUES ('"
 			.$conn->real_escape_string($userInfo['name'])."','"

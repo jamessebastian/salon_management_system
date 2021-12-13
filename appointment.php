@@ -27,6 +27,7 @@ if(isset($_POST['submit']))
         $f=sendMail($_SESSION['user']['email'] , $mailDetails); 
         $msg = $f?"Confirmation-Mail sent.":"Unable to sent confirmation-mail";
         echo "<script>alert('appointment taken.$msg');</script>"; 
+   
     }
   else {
         echo "<script>alert('Something Went Wrong. Please try again.');</script>"; 
