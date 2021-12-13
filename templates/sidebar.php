@@ -13,7 +13,7 @@ function whetherCurrentLink($link = '')
 
 
 $menuItemsList = array(
-  array("url" => "home.php","title" => "Home" ),
+  array("url" => "index.php","title" => "Home" ),
   array("url" => "sdfsd","title" => "Users" ),
   array("url" => "#","title" => "Features2" )
 );
@@ -25,21 +25,28 @@ $menuItemsList = array(
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="#">
-              <span data-feather="home"></span>
-              Dashboard
+            <a class="nav-link <?php echo whetherCurrentLink('admin-dashboard.php');?>" href="admin-dashboard.php">
+              <span data-feather="file"></span>
+              Dashboard 
             </a>
+
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="index.php">
-              <span data-feather="file"></span>
+            <a class="nav-link " aria-current="page" href="#"  href="admin-dashboard.php">
+              <span data-feather="home"></span>
               Users
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="addUser.php">
+            <a class="nav-link   <?php echo whetherCurrentLink('admin-addUser.php');?>"  href="admin-addUser.php">
               <span data-feather="file"></span>
               Add Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link   <?php echo whetherCurrentLink('admin-listAppointments.php');?>"  href="admin-listAppointments.php">
+              <span data-feather="file"></span>
+              list appointments
             </a>
           </li>
 <!--           <li class="nav-item">

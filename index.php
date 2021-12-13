@@ -1,105 +1,86 @@
-<?php 
-
+<?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include 'constants.php';
+session_start();
+include "constants.php";
 include 'models/dbConnection.php';
-include 'models/users.php';
 
-/**
-* gets field value from the form
-*
-* @param string   $fieldKey  field name
-*
-* @return string 
-*/ 
-function getFieldValue($fieldKey = '') 
-{
-    return isset($_POST[$fieldKey]) ? htmlspecialchars($_POST[$fieldKey]) : '';
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty(getFieldValue("id"))) {
-    $message=deleteUser(getFieldValue("id"));
-}
-
-
-$result = getUsersList();
+include "library/utils/loginCheck.php";
+include "library/utils/sendMail.php";
+isLoggedOut();
 ?>
 
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Dashboard </title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
-
+<head>
     
+    <title>Natura Salon || Home Page</title>
+    <!-- Bootstrap -->
+    <link href="assets3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i%7cMontserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="assets3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Style -->
+    <link href="assets3/css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js "></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js "></script>
+<![endif]-->
+</head>
 
-    <!-- Bootstrap core CSS -->
-<link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<body>
+    <?php include_once('templates/header.php');?>
+    <div class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1 class="hero-title">Natura Salon</h1>
+                    <p class="hero-text"><strong>Welcome to Natura Salon— where guests can expect nothing less than perfection. Whether you are seated in one of our salon chairs or tucked away in our luxurious starlight lathering lounge, our salon space was specifically designed for your relaxation and comfort. We deliver experiences uniquely tailored to you. </strong> </p>
+                    <a href="appointment.php" class="btn btn-default">Make an Appointment</a> </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="space-medium bg-default">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12"><img src="assets3/images/ab.jpg" alt="" class="img-responsive"></div>
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <div class="well-block">
+                        <?php
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+    $sql = "select * from pages where PageType='aboutus' ";
+    $result = $conn->query($sql);
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+      while($row = $result->fetch_assoc()) { ?>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
-  </head>
-  <body>
-    
-<?php include 'templates/adminHeader.php'?>
+                        <h1><?php  echo $row['PageTitle'];?></h1>
+                        <h5 class="small-title ">best experience ever</h5>
+                        <p><?php  echo $row['PageDescription'];?></p><?php } ?>
+                         </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   
+    <?php include_once('templates/footer.php');?>
+    <!-- /.footer-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="assets3/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets3/js/bootstrap.min.js"></script>
+    <script src="assets3/js/menumaker.js"></script>
+    <!-- sticky header -->
+    <script src="assets3/js/jquery.sticky.js"></script>
+    <script src="assets3/js/sticky-header.js"></script>
+</body>
 
-<div class="container-fluid">
-  <div class="row">
-    <?php include 'templates/sidebar.php'?>
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-<!--         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
-        </div> -->
-      </div>
-
-
-
-      <h3>USERS</h3>
-      <h3><?php echo $message??"";?></h3>
-      <button type="button" onclick="window.location.href='addUser.php'" class="btn btn-sm btn-outline-secondary">Add User</button>
-      <?php include 'templates/userListingTable.php'?>
-    </main>
-  </div>
-</div>
-
-
-    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
-  </body>
 </html>

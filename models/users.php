@@ -1,4 +1,37 @@
 <?php
+
+/**
+ * Checks login details.
+ *
+ * @param string $email entered email
+ *
+ * @return array Returns user details, only if the user credentials are correct 
+ */
+function checkUserCredentials($email = '')
+{
+    global $conn;
+    $sql    = sprintf("SELECT id,name,type,email,password FROM users WHERE email='%s'", $conn->real_escape_string($email));
+    $result = $conn->query($sql);
+    $row    = $result->fetch_assoc();
+    
+    if (password_verify($_POST['password'], $row['password'])) {
+        return $row;
+    }
+    return NULL;
+}
+
+/**
+* gets field value from the form
+*
+* @param string   $fieldKey  field name
+*
+* @return string 
+*/ 
+function getFieldValue($fieldKey = '')
+{
+    return isset($_POST[$fieldKey]) ? htmlspecialchars($_POST[$fieldKey]) : '';
+}
+
 /**
 * gets user details from the form 
 *
@@ -9,8 +42,8 @@ function getUserInfo()
     $userDetails['name']                       = getFieldValue("name");
     $userDetails['type']                       = getFieldValue("type");
     $userDetails['email']                      = getFieldValue("email");
-    $userDetails['password']                   = getFieldValue("password");
-    //$userDetails['password']                   = password_hash(getFieldValue("password"), PASSWORD_DEFAULT);
+   // $userDetails['password']                   = getFieldValue("password");
+    $userDetails['password']                   = password_hash(getFieldValue("password"), PASSWORD_DEFAULT);
     return $userDetails;
 }
 
@@ -81,7 +114,6 @@ function editUser($userInfo = [], $id = '')
 function getUsersList()
 {
     global $conn;
-
 
     $sql = "SELECT
                 id,
