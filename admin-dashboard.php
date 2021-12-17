@@ -83,8 +83,8 @@ $result = getUsersList();
 
 
       <h3>USERS</h3>
-      <h3><?php echo $message??"";?></h3>
-      <button type="button" onclick="window.location.href='addUser.php'" class="btn btn-sm btn-outline-secondary">Add User</button>
+      <p><?php echo $message??"";?></p>
+      <button type="button" onclick="window.location.href='admin-addUser.php'" class="btn btn-sm btn-outline-secondary">Add User</button>
       <?php include 'templates/userListingTable.php'?>
     </main>
   </div>

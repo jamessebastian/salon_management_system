@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
       <h3>ADD USER</h3>
-      <h3><?php echo $message??"";?></h3>
+      <p><?php echo $message??"";?></p>
 
       <?php include 'templates/addUserForm.php'?>
     </main>

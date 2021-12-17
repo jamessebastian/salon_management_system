@@ -11,17 +11,7 @@ include "library/utils/loginCheck.php";
 //var_dump($_SESSION['user']);
 isLoggedAdmin() ;
 
-/**
-* gets field value from the form
-*
-* @param string   $fieldKey  field name
-*
-* @return string 
-*/ 
-function getFieldValue($fieldKey = '') 
-{
-    return isset($_POST[$fieldKey]) ? htmlspecialchars($_POST[$fieldKey]) : '';
-}
+
 
 
 if (empty($_GET['id'])) {
@@ -112,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
       <h3>EDIT USER, <?php echo $userInfo['name'];?></h3>
-      <h3><?php echo $message??"";?></h3>
+      <p><?php echo $message??"";?></p>
 
       <?php include 'templates/editUserForm.php'?>
     </main>

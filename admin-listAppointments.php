@@ -86,7 +86,7 @@ $result = getAllAppointmentsList();
 
 
       <h3>Appointments</h3>
-      <h3><?php echo $message??"";?></h3>
+      <p><?php echo $message??"";?></p>
 
       <?php include 'templates/appointmentsListingTable.php'?>
     </main>

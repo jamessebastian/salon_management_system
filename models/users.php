@@ -43,7 +43,7 @@ function getFieldValue($fieldKey = '')
 function getUserInfo($mode="")
 {
     $userDetails['name']                       = getFieldValue("name");
-    if(!$mode="regCustomer"){
+    if($mode!="regCustomer"){
         $userDetails['type']                       = getFieldValue("type");
     }
     $userDetails['email']                      = getFieldValue("email");

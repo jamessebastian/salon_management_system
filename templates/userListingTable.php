@@ -24,7 +24,7 @@
                   <input hidden type="text" name="id" value="<?php echo $row['id']; ?>">
                   <input type="submit" value="delete" class="btn btn-danger btn-sm">
                 </form>
-                <a href="editUser.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm" >Edit</a>
+                <a href="admin-editUser.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm" >Edit</a>
 
               </td>
             </tr>
